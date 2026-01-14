@@ -1,0 +1,146 @@
+/* ==================== КАСТОМНЫЙ КУРСОР ==================== */
+/* 
+  Настройки:
+  - Измените --cursor-bg для изменения цвета курсора
+  - Размеры настраиваются в компоненте CustomCursor.jsx в объекте CONFIG
+*/
+
+:root {
+  --cursor-bg: #fff;
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  will-change: transform;
+}
+
+.cursor-inner {
+  width: 25px;
+  height: 25px;
+  background-color: var(--cursor-bg);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center center;
+  transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+              height 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+              background-color 0.3s ease,
+              border 0.3s ease;
+}
+
+/* Скрываем все режимы по умолчанию */
+.cursor-media-content,
+.cursor-drag-content,
+.cursor-slider-content {
+  display: none;
+}
+
+/* ==================== РЕЖИМ: DEFAULT ==================== */
+.custom-cursor[data-mode="default"] .cursor-inner {
+  width: 25px;
+  height: 25px;
+  background-color: var(--cursor-bg);
+}
+
+/* ==================== РЕЖИМ: LINK ==================== */
+.custom-cursor[data-mode="link"] .cursor-inner {
+  width: 50px;
+  height: 50px;
+  background-color: var(--cursor-bg);
+  border: 2px solid var(--cursor-bg);
+}
+
+/* ==================== РЕЖИМ: MEDIA ==================== */
+.custom-cursor[data-mode="media"] .cursor-inner {
+  width: 80px;
+  height: 80px;
+  background-color: var(--cursor-bg);
+  color: #000;
+}
+
+.custom-cursor[data-mode="media"] .cursor-media-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.cursor-play-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.cursor-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+/* ==================== РЕЖИМ: SLIDER ==================== */
+.custom-cursor[data-mode="slider"] .cursor-inner {
+  width: 50px;
+  height: 50px;
+  background-color: var(--cursor-bg);
+  color: #000;
+}
+
+.custom-cursor[data-mode="slider"] .cursor-slider-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.cursor-arrow-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.cursor-arrow-icon .arrow-left {
+  display: none;
+}
+
+.cursor-arrow-icon .arrow-right {
+  display: block;
+}
+
+.custom-cursor[data-slider-direction="left"] .cursor-arrow-icon .arrow-left {
+  display: block;
+}
+
+.custom-cursor[data-slider-direction="left"] .cursor-arrow-icon .arrow-right {
+  display: none;
+}
+
+/* ==================== РЕЖИМ: DRAG ==================== */
+.custom-cursor[data-mode="drag"] .cursor-inner {
+  width: 60px;
+  height: 60px;
+  background-color: var(--cursor-bg);
+  color: #000;
+}
+
+.custom-cursor[data-mode="drag"] .cursor-drag-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-cursor[data-mode="drag"] .cursor-drag-content .cursor-label {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ==================== РЕЖИМ: HIDDEN ==================== */
+.custom-cursor[data-mode="hidden"] {
+  opacity: 0;
+}
+
