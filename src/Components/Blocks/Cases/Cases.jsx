@@ -27,14 +27,17 @@ function CaseCard({ imgSrc, title, description, tags, type, price = 0, date }) {
 
     function formatDate(date) {
         const d = new Date(date);
-      
+
         const day = String(d.getDate()).padStart(2, '0');
         const month = String(d.getMonth() + 1).padStart(2, '0');
         const year = d.getFullYear();
-      
+
         return `${day}.${month}.${year}`;
-      }
-      
+    }
+
+    function formatAmount(value) {
+        return Number(value).toLocaleString('ru-RU');
+    }
 
     return (
         <>
@@ -187,7 +190,7 @@ function CaseCard({ imgSrc, title, description, tags, type, price = 0, date }) {
                         </div>
                         <div className={classes.shop_price_card}>
                             <div className={classes.shop_price}>
-                                {price} ₽
+                                {formatAmount(price)} ₽
                             </div>
                             <div className={classes.shop_card} data-cursor="card">
                                 Добавить в корзину
@@ -269,7 +272,7 @@ function Cases({ children, ...props }) {
             description: "Продумали внутреннюю логику для масштабного проекта, разработали систему и обновили дизайн",
             tags: ["Веб-дизайн", "frontend", "2024"],
             type: 'shop',
-            price: '50 000'
+            price: '50000'
         },
         {
             imgSrc: "/case-img-2.png",
@@ -277,7 +280,7 @@ function Cases({ children, ...props }) {
             description: "Продумали внутреннюю логику для масштабного проекта, разработали систему и обновили дизайн",
             tags: ["Веб-дизайн", "frontend", "2024"],
             type: 'shop',
-            price: '50 000'
+            price: '50000'
         },
         {
             imgSrc: "/case-img-3.png",
@@ -285,7 +288,7 @@ function Cases({ children, ...props }) {
             description: "Продумали внутреннюю логику для масштабного проекта, разработали систему и обновили дизайн",
             tags: ["Веб-дизайн", "frontend", "2024"],
             type: 'shop',
-            price: '50 000'
+            price: '50000'
         },
 
     ];
