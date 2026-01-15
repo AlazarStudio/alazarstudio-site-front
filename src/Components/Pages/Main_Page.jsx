@@ -1,11 +1,14 @@
 import React from "react";
+import Present_block from "../Blocks/Present_block/Present_block"
+import Cases from "../Blocks/Cases/Cases";
 
 function Main_Page({ children, ...props }) {
-    return ( 
+    return (
         <>
-            Main
+            <Present_block />
+            <Cases />
         </>
-     );
+    );
 }
 
 export default Main_Page;

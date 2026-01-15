@@ -4,7 +4,8 @@ import { Route, Routes } from "react-router-dom";
 import Main_Page from "./Components/Pages/Main_Page";
 import Non_Found_Page from "./Components/Pages/Non_Found_Page";
 import Layout from "./Components/Standart/Layout/Layout";
-import InstallButton from "./Components/Pages/InstallButton/InstallButton";
+import CustomCursor from "./Components/Cursor/CustomCursor"
+// import InstallButton from "./Components/Pages/InstallButton/InstallButton";
 
 function App() {
   return (
@@ -16,8 +17,10 @@ function App() {
         </Route>
       </Routes>
 
+      <CustomCursor />
+
       {/* Кнопка установки */}
-      <InstallButton />
+      {/* <InstallButton /> */}
     </>
   )
 }

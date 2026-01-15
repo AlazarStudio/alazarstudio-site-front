@@ -1,0 +1,30 @@
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 28px;
+    position: fixed;
+    width: 100%;
+    background-color: #0000007c;
+    z-index: 999;
+}
+
+.header_links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+}
+
+.header_links a {
+    color: #fff;
+    text-transform: uppercase;
+    text-transform: uppercase;
+}
+
+.header_links_user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 55px;
+}
