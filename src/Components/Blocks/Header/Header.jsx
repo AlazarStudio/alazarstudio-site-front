@@ -9,17 +9,17 @@ function Header({ children, ...props }) {
                 <Link to={'/'}><img src="/alazar-logo.png" alt="Alazar Studio logo" /></Link>
 
                 <div className={classes.header_links}>
-                    <Link to={'/'}>Главная</Link>
-                    <Link to={'/'}>Новости</Link>
+                    {/* <Link to={'/'}>Главная</Link> */}
                     <Link to={'/'}>Кейсы</Link>
-                    <Link to={'/'}>Магазин</Link>
-                    <Link to={'/'}>О нас</Link>
-                    <Link to={'/'}>Контакты</Link>
+                    <Link to={'/blog'}>Блог</Link>
+                    <Link to={'/shop'}>Магазин</Link>
+                    <Link to={'/about'}>О нас</Link>
+                    <Link to={'/contacts'}>Контакты</Link>
                 </div>
 
                 <div className={classes.header_links_user}>
-                    <Link to={'/'}><img src="/card.png" alt="" /></Link>
-                    <Link to={'/'}><img src="/profile.png" alt="" /></Link>
+                    <Link to={'/card'}><img src="/card.png" alt="" /></Link>
+                    <Link to={'/profile'}><img src="/profile.png" alt="" /></Link>
                 </div>
             </div>
         </header>

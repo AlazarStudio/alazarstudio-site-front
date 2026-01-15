@@ -7,6 +7,7 @@ function Main_Page({ children, ...props }) {
         <>
             <Present_block />
             <Cases />
+            
         </>
     );
 }

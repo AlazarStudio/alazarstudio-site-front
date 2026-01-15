@@ -268,17 +268,25 @@ const CustomCursor = () => {
         {/* <img src="/filter.png" alt="" /> */}
         <span className="cursor-label">Настроить <br /> фильтр</span>
       </div>
+      <div className="cursor-filter_blue-content">
+        {/* <img src="/filter.png" alt="" /> */}
+        <span className="cursor-label">Настроить <br /> фильтр</span>
+      </div>
 
       <div className="cursor-banner-content">
         <span className="cursor-label">Открыть <br /> баннер</span>
       </div>
 
       <div className="cursor-shop-content">
-        <span className="cursor-label">Открыть <br /> в магазине</span>
+        <span className="cursor-label">Открыть в <br /> магазине</span>
       </div>
 
       <div className="cursor-new-content">
         <span className="cursor-label">Открыть <br /> новость</span>
+      </div>
+
+      <div className="cursor-card-content">
+        <span className="cursor-label">Добавить в <br /> корзину</span>
       </div>
     </div>
   );
