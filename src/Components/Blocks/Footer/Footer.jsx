@@ -3,9 +3,9 @@ import classes from './Footer.module.css';
 
 function Footer({ children, ...props }) {
     return ( 
-        <>
-            Footer
-        </>
+        <footer className={classes.footer}>
+            ©2026 Alazar Studio. All right reserved.
+        </footer>
      );
 }
 
