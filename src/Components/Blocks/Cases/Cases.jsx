@@ -32,6 +32,7 @@ function CaseCard({ imgSrc, title, description, tags }) {
             onMouseMove={handleMouseMove}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            data-cursor="case"
         >
             {isHovered && (
                 <div 

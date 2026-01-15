@@ -37,7 +37,8 @@
 /* Скрываем все режимы по умолчанию */
 .cursor-media-content,
 .cursor-drag-content,
-.cursor-slider-content {
+.cursor-slider-content,
+.cursor-case-content {
   display: none;
 }
 
@@ -137,6 +138,35 @@
 .custom-cursor[data-mode="drag"] .cursor-drag-content .cursor-label {
   font-size: 12px;
   font-weight: 700;
+}
+
+/* ==================== РЕЖИМ: CASE ==================== */
+.custom-cursor[data-mode="case"] .cursor-inner {
+  width: 70px;
+  height: 70px;
+  background-color: var(--cursor-bg);
+  color: #000;
+}
+
+.custom-cursor[data-mode="case"] .cursor-case-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+.custom-cursor[data-mode="case"] .cursor-case-content .cursor-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  color: #000;
 }
 
 /* ==================== РЕЖИМ: HIDDEN ==================== */

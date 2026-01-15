@@ -22,6 +22,7 @@ const CONFIG = {
     default: 25,
     link: 50,
     media: 80,
+    case: 70,
   },
   
   // Плавность движения (0 = плавнее, 1 = мгновенно)
@@ -178,7 +179,7 @@ const CustomCursor = () => {
         
         cursorRef.current.setAttribute('data-mode', cursorMode);
         
-        if (cursorLabel && cursorMode === 'media') {
+        if (cursorLabel && (cursorMode === 'media' || cursorMode === 'case')) {
           cursorRef.current.setAttribute('data-label', cursorLabel);
         }
         
@@ -254,6 +255,11 @@ const CustomCursor = () => {
             <path className="arrow-right" d="M9 18l6-6-6-6" stroke="currentColor" strokeWidth="2" />
           </svg>
         </div>
+      </div>
+      
+      {/* Контент для режима case - вынесен наружу, чтобы не вращался */}
+      <div className="cursor-case-content">
+        <span className="cursor-label">Открыть</span>
       </div>
     </div>
   );
