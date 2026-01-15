@@ -6,7 +6,7 @@
 */
 
 :root {
-  --cursor-bg: #fff;
+  --cursor-bg: #E5097F;
 }
 
 .custom-cursor {
@@ -15,7 +15,7 @@
   left: 0;
   pointer-events: none;
   z-index: 9999;
-  mix-blend-mode: difference;
+  /* mix-blend-mode: difference; */
   will-change: transform;
 }
 
@@ -38,14 +38,18 @@
 .cursor-media-content,
 .cursor-drag-content,
 .cursor-slider-content,
-.cursor-case-content {
+.cursor-case-content,
+.cursor-filter-content,
+.cursor-banner-content,
+.cursor-shop-content,
+.cursor-new-content {
   display: none;
 }
 
 /* ==================== РЕЖИМ: DEFAULT ==================== */
 .custom-cursor[data-mode="default"] .cursor-inner {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
   background-color: var(--cursor-bg);
 }
 
@@ -78,11 +82,12 @@
 }
 
 .cursor-label {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
   white-space: nowrap;
+  text-align: center;
 }
 
 /* ==================== РЕЖИМ: SLIDER ==================== */
@@ -142,8 +147,8 @@
 
 /* ==================== РЕЖИМ: CASE ==================== */
 .custom-cursor[data-mode="case"] .cursor-inner {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   background-color: var(--cursor-bg);
   color: #000;
 }
@@ -161,13 +166,131 @@
 }
 
 .custom-cursor[data-mode="case"] .cursor-case-content .cursor-label {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   white-space: nowrap;
+  color: #fff;
+}
+
+/* ==================== РЕЖИМ: FILTER ==================== */
+.custom-cursor[data-mode="filter"] .cursor-inner {
+  width: 80px;
+  height: 80px;
+  background-color: var(--cursor-bg);
   color: #000;
 }
+
+.custom-cursor[data-mode="filter"] .cursor-filter-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+.cursor-filter-content img{
+  width: 40%;
+  height: 40%;
+  color: #fff;
+  object-fit: contain;
+}
+
+/* ==================== РЕЖИМ: banner ==================== */
+.custom-cursor[data-mode="banner"] .cursor-inner {
+  width: 80px;
+  height: 80px;
+  background-color: var(--cursor-bg);
+  color: #000;
+}
+
+.custom-cursor[data-mode="banner"] .cursor-banner-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+.custom-cursor[data-mode="banner"] .cursor-banner-content .cursor-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  color: #fff;
+  text-align: center;
+}
+
+/* ==================== РЕЖИМ: shop ==================== */
+.custom-cursor[data-mode="shop"] .cursor-inner {
+  width: 80px;
+  height: 80px;
+  background-color: var(--cursor-bg);
+  color: #000;
+}
+
+.custom-cursor[data-mode="shop"] .cursor-shop-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+.custom-cursor[data-mode="shop"] .cursor-shop-content .cursor-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  color: #fff;
+  text-align: center;
+}
+
+/* ==================== РЕЖИМ: new ==================== */
+.custom-cursor[data-mode="new"] .cursor-inner {
+  width: 80px;
+  height: 80px;
+  background-color: var(--cursor-bg);
+  color: #000;
+}
+
+.custom-cursor[data-mode="new"] .cursor-new-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+.custom-cursor[data-mode="new"] .cursor-new-content .cursor-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  color: #fff;
+  text-align: center;
+}
+
 
 /* ==================== РЕЖИМ: HIDDEN ==================== */
 .custom-cursor[data-mode="hidden"] {

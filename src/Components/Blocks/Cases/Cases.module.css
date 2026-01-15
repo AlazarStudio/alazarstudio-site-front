@@ -14,14 +14,18 @@
 .case {
     border-radius: 20px;
     overflow: hidden;
-    display: flex;
-    align-items: center;
     position: relative;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid #0D0D0D;
+}
+
+.case:hover {
+    background-color: #0D0D0D;
 }
 
 .type_case {
-    width: 416px;
+    width: 32.1%;
     height: fit-content;
 
     display: flex;
@@ -85,13 +89,13 @@
     transition: all 0.3s ease-in-out;
 }
 
-.case_img_tag:hover{
+.case_img_tag:hover {
     background-color: #FFFFFF80;
     color: #000;
 }
 
 .case_bottom {
-    padding: 25px;
+    padding: 25px 25px 40px 25px;
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -129,7 +133,6 @@
 }
 
 
-
 .type_shop,
 .type_new {
     width: 416px;
@@ -137,6 +140,55 @@
 }
 
 .type_banner {
-    width: 637px;
-    height: 449px;
+    width: 49%;
+    height: 420px;
+    padding: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+
+.banner_title {
+    font-weight: 800;
+    font-style: ExtraBold;
+    font-size: 24.24px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    vertical-align: middle;
+}
+
+.banner_desc {
+    font-family: Mulish;
+    font-weight: 600;
+    font-style: SemiBold;
+    font-size: 13px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    vertical-align: middle;
+}
+
+.banner_text {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.banner_img{
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: end;
+    margin-top: -50px;
+}
+
+.banner_img_container{
+    width: 50%;
+}
+
+.banner_img_container img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
