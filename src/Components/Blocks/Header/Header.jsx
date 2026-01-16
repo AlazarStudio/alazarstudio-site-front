@@ -1,10 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import classes from './Header.module.css';
 import { Link } from "react-router-dom";
 
 function Header({ children, ...props }) {
+    const [hasBackground, setHasBackground] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            // Фон появляется после скролла на 400px
+            const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+            setHasBackground(scrollPosition > 400);
+        };
+
+        // Проверяем начальную позицию
+        handleScroll();
+
+        // Добавляем обработчик события скролла
+        window.addEventListener('scroll', handleScroll);
+
+        // Очищаем обработчик при размонтировании
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
-        <header className={classes.header}>
+        <header className={`${classes.header} ${hasBackground ? classes.header_withBackground : ''}`}>
             <div className={'centerBlock'}>
                 <Link to={'/'}><img src="/alazar-logo.png" alt="Alazar Studio logo" /></Link>
 
