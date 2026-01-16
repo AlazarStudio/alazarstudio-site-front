@@ -204,11 +204,12 @@ function CaseCard({ imgSrc, title, description, tags, type, price = 0, date }) {
 }
 
 function Cases({ children, ...props }) {
+    // Имитация данных из разных источников - разбиты по типу
     const casesData = [
         {
             imgSrc: "/case-img-1.png",
             title: <>Магазин-каталог <br /> DR. PHONE</>,
-            description: "Продумали внутреннюю логику для масштабного проекта, разработали систему и обновили дизайн",
+            description: "Продумали внутреннюю логику для масштабного проекта, разработали систему и обновили дизайн. Продумали внутреннюю логику для масштабного проекта, разработали систему и обновили дизайн",
             tags: ["Веб-дизайн", "frontend", "2024"],
             type: 'case'
         },
@@ -226,6 +227,44 @@ function Cases({ children, ...props }) {
             tags: ["Веб-дизайн", "frontend", "2024"],
             type: 'case'
         },
+        {
+            imgSrc: "/case-img-3.png",
+            title: "Сайт адвокатской коллегии1",
+            description: "Продумали внутреннюю логику для масштабного проекта, разработали систему и обновили дизайн1",
+            tags: ["Веб-дизайн", "frontend", "2024"],
+            type: 'case'
+        },
+        {
+            imgSrc: "/case-img-3.png",
+            title: "Сайт адвокатской коллегии",
+            description: "Продумали внутреннюю логику для масштабного проекта, разработали систему и обновили дизайн",
+            tags: ["Веб-дизайн", "frontend", "2024"],
+            type: 'case'
+        },
+        {
+            imgSrc: "/case-img-3.png",
+            title: "Сайт адвокатской коллегии1",
+            description: "Продумали внутреннюю логику для масштабного проекта, разработали систему и обновили дизайн1",
+            tags: ["Веб-дизайн", "frontend", "2024"],
+            type: 'case'
+        },
+        {
+            imgSrc: "/case-img-3.png",
+            title: "Сайт адвокатской коллегии1",
+            description: "Продумали внутреннюю логику для масштабного проекта, разработали систему и обновили дизайн1",
+            tags: ["Веб-дизайн", "frontend", "2024"],
+            type: 'case'
+        },
+        {
+            imgSrc: "/case-img-3.png",
+            title: "Сайт адвокатской коллегии1",
+            description: "Продумали внутреннюю логику для масштабного проекта, разработали систему и обновили дизайн1",
+            tags: ["Веб-дизайн", "frontend", "2024"],
+            type: 'case'
+        },
+    ];
+
+    const bannersData = [
         {
             imgSrc: "/banner-img-1.png",
             title: "Какая то акция",
@@ -243,6 +282,58 @@ function Cases({ children, ...props }) {
             date: '2026-01-12'
         },
         {
+            imgSrc: "/banner-img-2.png",
+            title: "Какая то акция",
+            description: <>Здесь описание. <br /> Сами карточки черные, подсвечиваются при наведении курсора</>,
+            tags: ["Акция"],
+            type: 'banner',
+            date: '2026-01-12'
+        },
+        {
+            imgSrc: "/banner-img-2.png",
+            title: "Какая то акция",
+            description: <>Здесь описание. <br /> Сами карточки черные, подсвечиваются при наведении курсора</>,
+            tags: ["Акция"],
+            type: 'banner',
+            date: '2026-01-12'
+        },
+        {
+            imgSrc: "/banner-img-2.png",
+            title: "Какая то акция",
+            description: <>Здесь описание. <br /> Сами карточки черные, подсвечиваются при наведении курсора</>,
+            tags: ["Акция"],
+            type: 'banner',
+            date: '2026-01-12'
+        },
+        {
+            imgSrc: "/banner-img-2.png",
+            title: "Какая то акция",
+            description: <>Здесь описание. <br /> Сами карточки черные, подсвечиваются при наведении курсора</>,
+            tags: ["Акция"],
+            type: 'banner',
+            date: '2026-01-12'
+        },
+
+    ];
+
+    const newsData = [
+        {
+            imgSrc: "/new-img-1.png",
+            title: "Какие то новости",
+            description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi",
+            tags: ["Новости"],
+            type: 'new',
+            date: '2026-01-12'
+        },
+        {
+            imgSrc: "/new-img-1.png",
+            title: "Какие то новости",
+            description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi",
+            tags: ["Новости"],
+            type: 'new',
+            date: '2026-01-12'
+        },
+        {
             imgSrc: "/new-img-1.png",
             title: "Какие то новости",
             description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi",
@@ -266,6 +357,9 @@ function Cases({ children, ...props }) {
             type: 'new',
             date: '2026-01-12'
         },
+    ];
+
+    const shopData = [
         {
             imgSrc: "/case-img-1.png",
             title: <>Магазин-каталог <br /> DR. PHONE</>,
@@ -290,19 +384,114 @@ function Cases({ children, ...props }) {
             type: 'shop',
             price: '50000'
         },
-
+        {
+            imgSrc: "/case-img-3.png",
+            title: "Сайт адвокатской коллегии",
+            description: "Продумали внутреннюю логику для масштабного проекта, разработали систему и обновили дизайн",
+            tags: ["Веб-дизайн", "frontend", "2024"],
+            type: 'shop',
+            price: '50000'
+        },
+        {
+            imgSrc: "/case-img-3.png",
+            title: "Сайт адвокатской коллегии",
+            description: "Продумали внутреннюю логику для масштабного проекта, разработали систему и обновили дизайн",
+            tags: ["Веб-дизайн", "frontend", "2024"],
+            type: 'shop',
+            price: '50000'
+        },
     ];
+
+    // Функция для создания строк с учетом требования: 
+    // 3 любых (кроме акций), 2 акции, 6 любых, 2 акции и т.д.
+    const createRows = () => {
+        const rows = [];
+        
+        // Собираем все элементы кроме акций (без перемешивания)
+        const otherData = [...casesData, ...newsData, ...shopData];
+        
+        // Создаем копию массива акций для работы
+        const banners = [...bannersData];
+        
+        let otherIndex = 0;
+        let bannerIndex = 0;
+        let isFirstGroup = true;
+        
+        while (otherIndex < otherData.length || bannerIndex < banners.length) {
+            // Первая группа - 3 элемента, остальные - по 6
+            const currentGroupSize = isFirstGroup ? 3 : 6;
+            
+            // Создаем строки для группы не-акций
+            // Если группа из 6 элементов, разбиваем на 2 строки по 3
+            const elementsToAdd = Math.min(currentGroupSize, otherData.length - otherIndex);
+            
+            if (elementsToAdd === 3) {
+                // Создаем одну строку с 3 элементами
+                const otherRow = [];
+                for (let i = 0; i < 3 && otherIndex < otherData.length; i++) {
+                    otherRow.push(otherData[otherIndex]);
+                    otherIndex++;
+                }
+                if (otherRow.length > 0) {
+                    rows.push(otherRow);
+                }
+            } else if (elementsToAdd === 6) {
+                // Создаем 2 строки по 3 элемента
+                for (let rowNum = 0; rowNum < 2; rowNum++) {
+                    const otherRow = [];
+                    for (let i = 0; i < 3 && otherIndex < otherData.length; i++) {
+                        otherRow.push(otherData[otherIndex]);
+                        otherIndex++;
+                    }
+                    if (otherRow.length > 0) {
+                        rows.push(otherRow);
+                    }
+                }
+            } else {
+                // Для остальных случаев (меньше 3 или 6)
+                const otherRow = [];
+                for (let i = 0; i < elementsToAdd && otherIndex < otherData.length; i++) {
+                    otherRow.push(otherData[otherIndex]);
+                    otherIndex++;
+                }
+                if (otherRow.length > 0) {
+                    rows.push(otherRow);
+                }
+            }
+            
+            // Создаем строку для 2 акций
+            const bannerRow = [];
+            if (bannerIndex < banners.length) {
+                bannerRow.push(banners[bannerIndex]);
+                bannerIndex++;
+            }
+            if (bannerIndex < banners.length) {
+                bannerRow.push(banners[bannerIndex]);
+                bannerIndex++;
+            }
+            if (bannerRow.length > 0) {
+                rows.push(bannerRow);
+            }
+            
+            isFirstGroup = false;
+        }
+        
+        return rows;
+    };
+
+    const rows = createRows();
 
     return (
         <div className={classes.casesContainer}>
             <div className={"centerBlock"}>
                 <div className={classes.cases}>
-                    {casesData.map((caseData, index) => (
-                        <CaseCard key={index} {...caseData} />
+                    {rows.map((row, rowIndex) => (
+                        <div key={rowIndex} className={classes.casesRow}>
+                            {row.map((caseData, index) => (
+                                <CaseCard key={`${rowIndex}-${index}`} {...caseData} />
+                            ))}
+                        </div>
                     ))}
-
-                    {/* 
-                    <div className={`${classes.case} ${classes.type_new}`}>new</div> */}
                 </div>
             </div>
         </div>

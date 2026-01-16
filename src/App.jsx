@@ -13,8 +13,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Main_Page />} />
-          <Route path="*" element={<Non_Found_Page />} />
-        </Route>
+            <Route path="/blog" element={<>123</>} />
+            <Route path="*" element={<Non_Found_Page />} />
+          </Route>
       </Routes>
 
       <CustomCursor />
