@@ -3,7 +3,7 @@
     height: 85vh;
     margin-bottom: 50px;
     position: relative;
-    margin-bottom: 70px;
+    margin-bottom: 150px;
 }
 
 .videoStart::before {
@@ -54,6 +54,21 @@
 }
 
 .videoStart_name img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.downScroll{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 140px;
+    padding: 30px 20px 30px 115px;
+}
+
+.downScroll img{
     width: 100%;
     height: 100%;
     object-fit: contain;

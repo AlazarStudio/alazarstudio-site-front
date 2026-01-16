@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from './VideoStart.module.css';
 
 function VideoStart({ children, ...props }) {
     const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+    const [isDownScrollVisible, setIsDownScrollVisible] = useState(true);
 
     const handleVideoLoad = () => {
         // Даем дополнительное время для загрузки видео внутри iframe
@@ -12,12 +13,46 @@ function VideoStart({ children, ...props }) {
         }, 2000);
     };
 
+    const handleScrollToFilters = () => {
+        // Ищем элемент фильтра по data-атрибуту
+        const filterElement = document.querySelector('[data-filter-container="true"]');
+        if (filterElement) {
+            const elementPosition = filterElement.getBoundingClientRect().top + window.pageYOffset;
+            const offsetPosition = elementPosition - 100; // Отступ сверху для header
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    };
+
+    // Отслеживание скролла для скрытия гифки (на том же уровне, что и фон header)
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+            // Скрываем гифку на том же уровне, что и фон header (500px)
+            setIsDownScrollVisible(scrollPosition <= 700);
+        };
+
+        // Проверяем начальную позицию
+        handleScroll();
+
+        // Добавляем обработчик события скролла
+        window.addEventListener('scroll', handleScroll);
+
+        // Очищаем обработчик при размонтировании
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
         <div className={classes.videoStart}>
-            <div 
+            <div
                 className={classes.videoPreview}
-                style={{ 
-                    opacity: isVideoLoaded ? 0 : 1, 
+                style={{
+                    opacity: isVideoLoaded ? 0 : 1,
                     pointerEvents: isVideoLoaded ? 'none' : 'auto',
                     transition: 'opacity 0.5s ease-in-out'
                 }}
@@ -36,6 +71,18 @@ function VideoStart({ children, ...props }) {
             </iframe>
             <div className={classes.videoStart_name}>
                 <img src="/logo-name.png" alt="" />
+            </div>
+            <div 
+                className={classes.downScroll} 
+                onClick={handleScrollToFilters} 
+                style={{ 
+                    cursor: 'pointer',
+                    opacity: isDownScrollVisible ? 1 : 0,
+                    pointerEvents: isDownScrollVisible ? 'auto' : 'none',
+                    transition: 'opacity 0.3s ease-in-out'
+                }}
+            >
+                <img src="/down.gif" alt="" />
             </div>
         </div>
     );

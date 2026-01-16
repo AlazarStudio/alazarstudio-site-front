@@ -210,8 +210,10 @@ function Cases({ children, ...props }) {
     const [selectedType, setSelectedType] = useState(null); // По умолчанию ничего не выбрано (одиночный выбор)
     const [isFilterVisible, setIsFilterVisible] = useState(true); // Видимость оригинального фильтра
     const [isLoading, setIsLoading] = useState(false); // Состояние загрузки
+    const [isCasesEnded, setIsCasesEnded] = useState(false); // Достиг ли пользователь конца кейсов
     const filterRef = useRef(null);
     const casesRef = useRef(null);
+    const casesContainerRef = useRef(null);
 
     // Структура фильтров с тегами из данных
     const filterCategories = {
@@ -242,13 +244,22 @@ function Cases({ children, ...props }) {
         { key: 'shop', name: 'Магазин' }
     ];
 
-    // Отслеживание видимости фильтра при скролле
+    // Отслеживание видимости фильтра и конца кейсов при скролле
     useEffect(() => {
         const handleScroll = () => {
             if (filterRef.current) {
                 const rect = filterRef.current.getBoundingClientRect();
                 // Проверяем, скрылся ли фильтр с экрана (ниже видимой области)
                 setIsFilterVisible(rect.bottom > 0);
+            }
+            
+            // Проверяем, достиг ли пользователь 60% экрана
+            if (casesContainerRef.current) {
+                const containerRect = casesContainerRef.current.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                const threshold = windowHeight * 0.2; // 20% экрана
+                // Если нижняя часть контейнера с кейсами прошла 20% экрана
+                setIsCasesEnded(containerRect.bottom <= threshold);
             }
         };
 
@@ -682,9 +693,9 @@ function Cases({ children, ...props }) {
     return (
         <div className={classes.casesContainer}>
             <div className={"centerBlock"}>
-                <div className={classes.cases}>
+                <div className={classes.cases} ref={casesContainerRef}>
                     {/* Оригинальный фильтр */}
-                    <div ref={filterRef}>
+                    <div ref={filterRef} data-filter-container="true">
                         {renderFilter()}
                     </div>
 
@@ -721,7 +732,7 @@ function Cases({ children, ...props }) {
 
             {/* Фиксированный фильтр внизу экрана */}
             {/* {!isFilterVisible && ( */}
-            <div className={`${classes.filterFixed} ${isFilterVisible ? classes.animateTopVisible : classes.animateBottomVisible}`}>
+            <div className={`${classes.filterFixed} ${isCasesEnded ? classes.animateTopVisible : (isFilterVisible ? classes.animateTopVisible : classes.animateBottomVisible)}`}>
                 {renderFilter(classes.filterContainerFixed)}
             </div>
             {/* )} */}
