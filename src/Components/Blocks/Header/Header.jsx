@@ -9,7 +9,7 @@ function Header({ children, ...props }) {
         const handleScroll = () => {
             // Фон появляется после скролла на 400px
             const scrollPosition = window.scrollY || document.documentElement.scrollTop;
-            setHasBackground(scrollPosition > 400);
+            setHasBackground(scrollPosition > 500);
         };
 
         // Проверяем начальную позицию
