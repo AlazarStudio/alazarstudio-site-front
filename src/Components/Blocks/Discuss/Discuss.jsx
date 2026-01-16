@@ -13,13 +13,13 @@ function Discuss({ children, ...props }) {
                             <label>Ваше имя</label>
                             <input type="text" placeholder="Ваше имя" />
                             <label>Телефон</label>
-                            <input type="tel" placeholder="Телефон" />
+                            <input type="text" placeholder="Телефон" />
                             <label>E-mail</label>
                             <input type="email" placeholder="E-mail" />
                             <label>Компания</label>
                             <input type="text" placeholder="Компания" />
                             <label>Бюджет</label>
-                            <input type="number" placeholder="Бюджет" />
+                            <input type="text" placeholder="Бюджет" />
                             <label>Комментарий</label>
                             <input type="text" placeholder="Комментарий" />
 
