@@ -38,10 +38,10 @@ function Header({ children, ...props }) {
                     <Link to={'/contacts'}>Контакты</Link>
                 </div>
 
-                <div className={classes.header_links_user}>
+                {/* <div className={classes.header_links_user}>
                     <Link to={'/card'}><img src="/card.png" alt="" /></Link>
                     <Link to={'/profile'}><img src="/profile.png" alt="" /></Link>
-                </div>
+                </div> */}
             </div>
         </header>
     );
