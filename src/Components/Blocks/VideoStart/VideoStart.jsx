@@ -82,7 +82,7 @@ function VideoStart({ children, ...props }) {
                     transition: 'opacity 0.3s ease-in-out'
                 }}
             >
-                <img src="/down.gif" alt="" />
+                <img src="/down.gif" alt="" data-cursor="scrollToCases"/>
             </div>
         </div>
     );

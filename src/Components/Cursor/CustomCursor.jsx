@@ -268,6 +268,7 @@ const CustomCursor = () => {
         {/* <img src="/filter.png" alt="" /> */}
         <span className="cursor-label">Настроить <br /> фильтр</span>
       </div>
+      
       <div className="cursor-filter_blue-content">
         {/* <img src="/filter.png" alt="" /> */}
         <span className="cursor-label">Настроить <br /> фильтр</span>
@@ -287,6 +288,10 @@ const CustomCursor = () => {
 
       <div className="cursor-card-content">
         <span className="cursor-label">Добавить в <br /> корзину</span>
+      </div>
+
+      <div className="cursor-scrollToCases-content">
+        <span className="cursor-label">Перейти к <br /> кейсам</span>
       </div>
     </div>
   );
