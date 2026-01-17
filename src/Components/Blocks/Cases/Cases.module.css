@@ -267,6 +267,7 @@
     object-fit: cover;
     position: relative;
     z-index: 2;
+    will-change: transform;
 }
 
 .case_img_tags {
@@ -297,10 +298,10 @@
     transition: all 0.3s ease-in-out;
 }
 
-.case_img_tag:hover {
+/* .case_img_tag:hover {
     background-color: #ffffff;
     color: #000;
-}
+} */
 
 .case_bottom {
     padding: 25px 25px 40px 25px;
@@ -397,12 +398,14 @@
 .banner_img_container {
     width: 50%;
     height: 235px;
+    overflow: hidden;
 }
 
 .banner_img_container img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+    will-change: transform;
 }
 
 .shop_img {
@@ -418,6 +421,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    will-change: transform;
 }
 
 .shop_bottom {
@@ -593,10 +597,12 @@
     height: 265px;
     display: flex;
     justify-content: center;
+    overflow: hidden;
 }
 
 .new_container_img img{
     width: 100%;
     height: 100%;
     object-fit: contain;
+    will-change: transform;
 }

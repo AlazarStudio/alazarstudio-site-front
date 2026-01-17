@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 function CaseCard({ imgSrc, title, description, tags, type, price = 0, date }) {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [imageOffset, setImageOffset] = useState({ x: 0, y: 0 });
     const [isHovered, setIsHovered] = useState(false);
     const caseRef = useRef(null);
 
@@ -15,6 +16,14 @@ function CaseCard({ imgSrc, title, description, tags, type, price = 0, date }) {
         const y = e.clientY - rect.top;
 
         setMousePosition({ x, y });
+
+        // Вычисляем смещение относительно центра контейнера
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const offsetX = (x - centerX) * 0.05; // Коэффициент для плавного движения
+        const offsetY = (y - centerY) * 0.05;
+
+        setImageOffset({ x: offsetX, y: offsetY });
     };
 
     const handleMouseEnter = () => {
@@ -23,6 +32,7 @@ function CaseCard({ imgSrc, title, description, tags, type, price = 0, date }) {
 
     const handleMouseLeave = () => {
         setIsHovered(false);
+        setImageOffset({ x: 0, y: 0 });
     };
 
     function formatDate(date) {
@@ -60,10 +70,21 @@ function CaseCard({ imgSrc, title, description, tags, type, price = 0, date }) {
                         />
                     )}
                     <div className={classes.case_img}>
-                        <img src={imgSrc} alt="" />
+                        <img
+                            src={imgSrc}
+                            alt=""
+                            style={{
+                                transform: isHovered
+                                    ? `scale(1.1) translate(${imageOffset.x}px, ${imageOffset.y}px)`
+                                    : 'scale(1) translate(0, 0)',
+                                transition: 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                            }}
+                        />
                         <div className={classes.case_img_tags}>
                             {tags.map((tag, index) => (
-                                <Link key={index} to={'/'} className={classes.case_img_tag} data-cursor="filter">
+                                <Link key={index} to={'/'} className={classes.case_img_tag}
+                                    // data-cursor="filter"
+                                >
                                     {tag}
                                 </Link>
                             ))}
@@ -98,7 +119,9 @@ function CaseCard({ imgSrc, title, description, tags, type, price = 0, date }) {
                     )}
                     <div className={classes.banner_tags}>
                         {tags.map((tag, index) => (
-                            <Link key={index} to={'/'} className={classes.banner_tag} data-cursor="filter_blue">
+                            <Link key={index} to={'/'} className={classes.banner_tag}
+                                // data-cursor="filter_blue"
+                            >
                                 {tag}
                             </Link>
                         ))}
@@ -140,7 +163,9 @@ function CaseCard({ imgSrc, title, description, tags, type, price = 0, date }) {
                             <div className={classes.new_container_dot}></div>
                             <div className={classes.new_container_tag}>
                                 {tags.map((tag, index) => (
-                                    <Link key={index} to={'/'} className={classes.banner_tag} data-cursor="filter">
+                                    <Link key={index} to={'/'} className={classes.banner_tag}
+                                        // data-cursor="filter"
+                                    >
                                         {tag}
                                     </Link>
                                 ))}
@@ -174,7 +199,16 @@ function CaseCard({ imgSrc, title, description, tags, type, price = 0, date }) {
                         />
                     )}
                     <div className={classes.shop_img}>
-                        <img src={imgSrc} alt="" />
+                        <img
+                            src={imgSrc}
+                            alt=""
+                            style={{
+                                transform: isHovered
+                                    ? `scale(1.1) translate(${imageOffset.x}px, ${imageOffset.y}px)`
+                                    : 'scale(1) translate(0, 0)',
+                                transition: 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                            }}
+                        />
                     </div>
                     <div className={classes.shop_bottom}>
                         <div className={classes.shop_bottom_title}>{title}</div>
@@ -183,7 +217,9 @@ function CaseCard({ imgSrc, title, description, tags, type, price = 0, date }) {
                         </div>
                         <div className={classes.shop_img_tags}>
                             {tags.map((tag, index) => (
-                                <Link key={index} to={'/'} className={classes.shop_img_tag} data-cursor="filter_blue">
+                                <Link key={index} to={'/'} className={classes.shop_img_tag}
+                                    // data-cursor="filter_blue"
+                                >
                                     {tag}
                                 </Link>
                             ))}
@@ -252,12 +288,12 @@ function Cases({ children, ...props }) {
                 // Проверяем, скрылся ли фильтр с экрана (ниже видимой области)
                 setIsFilterVisible(rect.bottom > 0);
             }
-            
+
             // Проверяем, достиг ли пользователь 60% экрана
             if (casesContainerRef.current) {
                 const containerRect = casesContainerRef.current.getBoundingClientRect();
                 const windowHeight = window.innerHeight;
-                const threshold = windowHeight * 0.2; // 20% экрана
+                const threshold = windowHeight * 0.3; // 20% экрана
                 // Если нижняя часть контейнера с кейсами прошла 20% экрана
                 setIsCasesEnded(containerRect.bottom <= threshold);
             }
@@ -282,12 +318,12 @@ function Cases({ children, ...props }) {
         // Показываем лоадер только при изменении типа или тега
         if (selectedType !== null || selectedTag !== null) {
             setIsLoading(true);
-            
+
             // Показываем лоадер на 1 секунду
             const timer = setTimeout(() => {
                 setIsLoading(false);
             }, 1000);
-            
+
             return () => clearTimeout(timer);
         } else {
             setIsLoading(false);

@@ -125,7 +125,7 @@
     position: relative;
     overflow: hidden;
     position: relative;
-    z-index: 999999;
+    /* z-index: 999999; */
 }
 
 .discuss_img img {
