@@ -11,7 +11,7 @@
     justify-content: space-between;
 }
 
-.discuss_form{
+.discuss_form {
     position: relative;
     width: 40%;
 }
@@ -84,7 +84,7 @@
     gap: 15px;
 }
 
-.discuss_form form .formInclude input{
+.discuss_form form .formInclude input {
     width: 20px;
     margin-bottom: 0;
 }
@@ -109,22 +109,43 @@
     vertical-align: middle;
 }
 
-.formBG{
+.formBG {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-.discuss_img{
+.discuss_img {
     width: 50%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    overflow: hidden;
+    position: relative;
+    z-index: 999999;
 }
 
-.discuss_img img{
+.discuss_img img {
     width: 100%;
     height: 100%;
     object-fit: contain;
+}
+
+.discuss_img canvas {
+    width: 100% !important;
+    height: 100% !important;
+    display: block !important;
+}
+
+.hiddenBlock {
+    position: absolute;
+    width: 200px;
+    height: 60px;
+    background-color: #000;
+    bottom: 0;
+    right: 0;
+    pointer-events: none;
 }
