@@ -18,8 +18,10 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Main_Page />} />
           <Route path="/:type/:url_text" element={<Main_Page />} />
-          <Route path="/blog" element={<Blog />} />
+          <Route path="/news" element={<Blog />} />
+          <Route path="/news/:url_text" element={<Blog />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/shop/:url_text" element={<Shop />} />
           <Route path="/about" element={<About />} />
           <Route path="/contacts" element={<Contacts />} />
           <Route path="*" element={<Non_Found_Page />} />

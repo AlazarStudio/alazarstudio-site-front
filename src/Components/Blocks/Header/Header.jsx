@@ -1,15 +1,25 @@
 import React, { useState, useEffect } from "react";
 import classes from './Header.module.css';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Header({ children, ...props }) {
     const [hasBackground, setHasBackground] = useState(false);
+    const { pathname } = useLocation();
+    const section = pathname.split("/")[1] || "/";
+
+    
+    let scrollNumber = 400
+    if (section == 'news'){
+        scrollNumber = 100
+    }
+    if (section == 'shop'){
+        scrollNumber = 100
+    }
 
     useEffect(() => {
         const handleScroll = () => {
-            // Фон появляется после скролла на 400px
             const scrollPosition = window.scrollY || document.documentElement.scrollTop;
-            setHasBackground(scrollPosition > 400);
+            setHasBackground(scrollPosition > scrollNumber);
         };
 
         // Проверяем начальную позицию
@@ -18,11 +28,11 @@ function Header({ children, ...props }) {
         // Добавляем обработчик события скролла
         window.addEventListener('scroll', handleScroll);
 
-        // Очищаем обработчик при размонтировании
+        // Очищаем обработчик при размонтировании / смене маршрута
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    }, []);
+    }, [scrollNumber]);
 
     return (
         <header className={`${classes.header} ${hasBackground ? classes.header_withBackground : ''}`}>
@@ -32,7 +42,7 @@ function Header({ children, ...props }) {
                 <div className={classes.header_links}>
                     {/* <Link to={'/'}>Главная</Link> */}
                     <Link to={'/'}>Кейсы</Link>
-                    <Link to={'/blog'}>Блог</Link>
+                    <Link to={'/news'}>Блог</Link>
                     <Link to={'/shop'}>Магазин</Link>
                     <Link to={'/about'}>О нас</Link>
                     <Link to={'/contacts'}>Контакты</Link>

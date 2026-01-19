@@ -4,12 +4,19 @@ import { newsData } from '../../../data/casesData.jsx';
 import { IconButton, Tooltip } from '@mui/material';
 import SortIcon from '@mui/icons-material/Sort';
 import CaseCard from "../../Blocks/CaseCard/CaseCard.jsx";
+import Modal from "../../Standart/Modal/Modal.jsx";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 function Blog({ children, ...props }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [sortOrder, setSortOrder] = useState('newest'); // 'newest' или 'oldest'
     const [isLoading, setIsLoading] = useState(false);
     const [filteredNews, setFilteredNews] = useState(newsData);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { url_text: routeUrlText } = useParams();
 
     // Фильтрация, поиск и сортировка
     useEffect(() => {
@@ -62,10 +69,71 @@ function Blog({ children, ...props }) {
         setSearchQuery(e.target.value);
     };
 
+    const handleItemClick = (item) => {
+        setSelectedItem(item);
+        setIsModalOpen(true);
+        if (item?.url_text) {
+            navigate(`/news/${item.url_text}`, {
+                state: { modalBackground: "/news" },
+            });
+        }
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setSelectedItem(null);
+        const background = location.state?.modalBackground || "/news";
+        navigate(background, { replace: true });
+    };
+
     // Обработчик переключения сортировки
     const handleSortToggle = () => {
         setSortOrder(prev => prev === 'newest' ? 'oldest' : 'newest');
     };
+
+    // Синхронизация модалки с URL для блога
+    useEffect(() => {
+        if (!routeUrlText) {
+            if (isModalOpen || selectedItem) {
+                setIsModalOpen(false);
+                setSelectedItem(null);
+            }
+            return;
+        }
+
+        const itemFromUrl = newsData.find(n => n.url_text === routeUrlText);
+        if (!itemFromUrl) {
+            setIsModalOpen(false);
+            setSelectedItem(null);
+            navigate("/blog", { replace: true });
+            return;
+        }
+
+        setSelectedItem(itemFromUrl);
+        setIsModalOpen(true);
+    }, [routeUrlText, navigate]);
+
+    // Скролл к карточке новости при открытии по URL
+    useEffect(() => {
+        if (!selectedItem || !selectedItem.url_text) return;
+
+        const timer = setTimeout(() => {
+            const selector = `[data-url-text="${selectedItem.url_text}"]`;
+            const cardElement = document.querySelector(selector);
+            if (cardElement) {
+                const rect = cardElement.getBoundingClientRect();
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const offsetTop = rect.top + scrollTop - 120;
+
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth',
+                });
+            }
+        }, 0);
+
+        return () => clearTimeout(timer);
+    }, [selectedItem]);
 
     return (
         <div className={classes.blogContainer}>
@@ -135,7 +203,11 @@ function Blog({ children, ...props }) {
                             {filteredNews.length > 0 ? (
                                 <div className={classes.newsGrid}>
                                     {filteredNews.map((item, index) => (
-                                        <CaseCard key={index} {...item} />
+                                        <CaseCard
+                                            key={index}
+                                            {...item}
+                                            onClick={() => handleItemClick(item)}
+                                        />
                                     ))}
                                 </div>
                             ) : (
@@ -147,6 +219,15 @@ function Blog({ children, ...props }) {
                     )}
                 </div>
             </div>
+
+            <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+                {selectedItem && (
+                    <div style={{ padding: '40px' }}>
+                        <h2>{selectedItem.title}</h2>
+                        <p>{selectedItem.description}</p>
+                    </div>
+                )}
+            </Modal>
         </div>
     );
 }

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import classes from './Shop.module.css';
 import { shopData, filterCategories } from '../../../data/casesData.jsx';
 import CaseCard from "../../Blocks/CaseCard/CaseCard.jsx";
+import Modal from "../../Standart/Modal/Modal.jsx";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 // Функция для извлечения текста из JSX элемента
 function extractTextFromJSX(element) {
@@ -36,6 +38,11 @@ function Shop({ children, ...props }) {
     const [filteredItems, setFilteredItems] = useState(shopData);
     const filterRef = useRef(null);
     const casesContainerRef = useRef(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { url_text: routeUrlText } = useParams();
 
     // Получаем все уникальные теги из shopData
     const allTags = [...new Set(shopData.flatMap(item => item.tags))];
@@ -150,6 +157,67 @@ function Shop({ children, ...props }) {
         setSearchQuery(e.target.value);
     };
 
+    const handleItemClick = (item) => {
+        setSelectedItem(item);
+        setIsModalOpen(true);
+        if (item?.url_text) {
+            navigate(`/shop/${item.url_text}`, {
+                state: { modalBackground: "/shop" },
+            });
+        }
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setSelectedItem(null);
+        const background = location.state?.modalBackground || "/shop";
+        navigate(background, { replace: true });
+    };
+
+    // Синхронизация модалки с URL для магазина
+    useEffect(() => {
+        if (!routeUrlText) {
+            if (isModalOpen || selectedItem) {
+                setIsModalOpen(false);
+                setSelectedItem(null);
+            }
+            return;
+        }
+
+        const itemFromUrl = shopData.find(n => n.url_text === routeUrlText);
+        if (!itemFromUrl) {
+            setIsModalOpen(false);
+            setSelectedItem(null);
+            navigate("/shop", { replace: true });
+            return;
+        }
+
+        setSelectedItem(itemFromUrl);
+        setIsModalOpen(true);
+    }, [routeUrlText, navigate]);
+
+    // Скролл к карточке товара при открытии по URL
+    useEffect(() => {
+        if (!selectedItem || !selectedItem.url_text) return;
+
+        const timer = setTimeout(() => {
+            const selector = `[data-url-text="${selectedItem.url_text}"]`;
+            const cardElement = document.querySelector(selector);
+            if (cardElement) {
+                const rect = cardElement.getBoundingClientRect();
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const offsetTop = rect.top + scrollTop - 120;
+
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth',
+                });
+            }
+        }, 0);
+
+        return () => clearTimeout(timer);
+    }, [selectedItem]);
+
     // Функция для рендеринга фильтра
     const renderFilter = (containerClass = classes.filterContainer) => {
         const currentCategory = filterCategories[selectedCategory];
@@ -235,7 +303,11 @@ function Shop({ children, ...props }) {
                             {filteredItems.length > 0 ? (
                                 <div className={classes.newsGrid}>
                                     {filteredItems.map((item, index) => (
-                                        <CaseCard key={index} {...item} />
+                                        <CaseCard
+                                            key={index}
+                                            {...item}
+                                            onClick={() => handleItemClick(item)}
+                                        />
                                     ))}
                                 </div>
                             ) : (
@@ -252,6 +324,15 @@ function Shop({ children, ...props }) {
                     {renderFilter(classes.filterContainerFixed)}
                 </div>
             </div>
+
+            <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+                {selectedItem && (
+                    <div style={{ padding: '40px' }}>
+                        <h2>{selectedItem.title}</h2>
+                        <p>{selectedItem.description}</p>
+                    </div>
+                )}
+            </Modal>
         </div>
     );
 }
