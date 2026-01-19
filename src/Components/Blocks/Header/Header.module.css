@@ -11,7 +11,8 @@
 }
 
 .header_withBackground {
-    background-color: #0000007c;
+    background-color: #00000057;
+    backdrop-filter: blur(10px);
 }
 
 .header_links {

@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 import classes from './Cases.module.css';
-import { Link } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { filterCategories, elementTypes, casesData, bannersData, newsData, shopData } from '../../../data/casesData.jsx';
+import Modal from '../../Standart/Modal/Modal.jsx';
+import CaseCard from "../CaseCard/CaseCard.jsx";
 
 function Cases({ children, ...props }) {
     // Состояния для фильтрации
@@ -11,9 +13,20 @@ function Cases({ children, ...props }) {
     const [isFilterVisible, setIsFilterVisible] = useState(true); // Видимость оригинального фильтра
     const [isLoading, setIsLoading] = useState(false); // Состояние загрузки
     const [isCasesEnded, setIsCasesEnded] = useState(false); // Достиг ли пользователь конца кейсов
+    const [isModalOpen, setIsModalOpen] = useState(false); // Состояние модального окна
+    const [selectedItem, setSelectedItem] = useState(null); // Выбранный элемент для модального окна
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { type: routeType, url_text: routeUrlText } = useParams();
     const filterRef = useRef(null);
     const casesRef = useRef(null);
     const casesContainerRef = useRef(null);
+
+    const findItemByUrlText = (urlText) => {
+        if (!urlText) return null;
+        const allItems = [...casesData, ...newsData, ...shopData, ...bannersData];
+        return allItems.find((x) => String(x.url_text) === String(urlText)) || null;
+    };
 
     // Отслеживание видимости фильтра и конца кейсов при скролле
     useEffect(() => {
@@ -211,6 +224,74 @@ function Cases({ children, ...props }) {
         return rows;
     };
 
+    // Обработчик открытия модального окна
+    const handleItemClick = (item) => {
+        setSelectedItem(item);
+        setIsModalOpen(true);
+        if (item?.type && item?.url_text) {
+            navigate(`/${item.type}/${item.url_text}`, {
+                state: { modalBackground: location.pathname },
+            });
+        }
+    };
+
+    // Обработчик закрытия модального окна
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setSelectedItem(null);
+        const background = location.state?.modalBackground || "/";
+        navigate(background, { replace: true });
+    };
+
+    // Синхронизация состояния модалки с URL (ЧПУ)
+    useEffect(() => {
+        const hasRouteModal = Boolean(routeType && routeUrlText);
+
+        if (hasRouteModal) {
+            const itemFromUrl = findItemByUrlText(routeUrlText);
+            // Если url_text не найден (невалидный URL) — закрываем и возвращаем на главную
+            if (!itemFromUrl || (routeType && itemFromUrl.type !== routeType)) {
+                setIsModalOpen(false);
+                setSelectedItem(null);
+                navigate("/", { replace: true });
+                return;
+            }
+
+            setIsModalOpen(true);
+            setSelectedItem(itemFromUrl);
+            return;
+        }
+
+        // Если мы не на /cases/:type/:url_text — модалка должна быть закрыта
+        if (isModalOpen || selectedItem) {
+            setIsModalOpen(false);
+            setSelectedItem(null);
+        }
+    }, [routeType, routeUrlText, navigate]);
+
+    // Прокрутка к карточке при открытии по URL
+    useEffect(() => {
+        if (!selectedItem || !selectedItem.url_text) return;
+
+        // Ждем, чтобы DOM точно прорендерился
+        const timer = setTimeout(() => {
+            const selector = `[data-url-text="${selectedItem.url_text}"]`;
+            const cardElement = document.querySelector(selector);
+            if (cardElement) {
+                const rect = cardElement.getBoundingClientRect();
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                const offsetTop = rect.top + scrollTop - 120; // небольшой отступ под хедер
+
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth',
+                });
+            }
+        }, 0);
+
+        return () => clearTimeout(timer);
+    }, [selectedItem]);
+
     const rows = createRows();
     const currentCategory = filterCategories[selectedCategory];
     const availableTags = currentCategory ? currentCategory.tags : [];
@@ -289,7 +370,11 @@ function Cases({ children, ...props }) {
                                 rows.map((row, rowIndex) => (
                                     <div key={rowIndex} className={classes.casesRow}>
                                         {row.map((caseData, index) => (
-                                            <CaseCard key={`${rowIndex}-${index}`} {...caseData} />
+                                            <CaseCard 
+                                                key={`${rowIndex}-${index}`} 
+                                                {...caseData} 
+                                                onClick={() => handleItemClick(caseData)}
+                                            />
                                         ))}
                                     </div>
                                 ))
@@ -309,9 +394,20 @@ function Cases({ children, ...props }) {
                 {renderFilter(classes.filterContainerFixed)}
             </div>
             {/* )} */}
+
+            {/* Модальное окно */}
+            <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+                {selectedItem && (
+                    <div style={{ padding: '40px' }}>
+                        {/* Здесь можно рендерить любой контент в зависимости от типа элемента */}
+                        <h2>{selectedItem.title}</h2>
+                        <p>{selectedItem.description}</p>
+                        {/* Добавьте здесь нужный контент для модального окна */}
+                    </div>
+                )}
+            </Modal>
         </div>
     );
 }
-import CaseCard from "../CaseCard/CaseCard.jsx";
 
 export default Cases;

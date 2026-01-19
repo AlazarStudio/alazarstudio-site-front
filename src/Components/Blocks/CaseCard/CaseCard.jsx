@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import classes from './CaseCard.module.css';
 import { Link } from "react-router-dom";
 
-function CaseCard({ imgSrc, title, description, tags, type, price = 0, date }) {
+function CaseCard({ imgSrc, title, description, tags, type, price = 0, date, onClick, url_text }) {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [imageOffset, setImageOffset] = useState({ x: 0, y: 0 });
     const [isHovered, setIsHovered] = useState(false);
@@ -49,16 +49,29 @@ function CaseCard({ imgSrc, title, description, tags, type, price = 0, date }) {
         return Number(value).toLocaleString('ru-RU');
     }
 
+    const handleClick = () => {
+        if (onClick) {
+            onClick();
+        }
+    };
+
+    const stopPropagation = (e) => {
+        e.stopPropagation();
+    };
+
     return (
         <>
             {type == "case" &&
-                <Link to={"/case"}
+                <div
                     className={`${classes.case} ${classes.type_case}`}
                     ref={caseRef}
                     onMouseMove={handleMouseMove}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
+                    onClick={handleClick}
                     data-cursor={type}
+                    style={{ cursor: 'pointer' }}
+                    data-url-text={url_text}
                 >
                     {isHovered && (
                         <div
@@ -82,7 +95,11 @@ function CaseCard({ imgSrc, title, description, tags, type, price = 0, date }) {
                         />
                         <div className={classes.case_img_tags}>
                             {tags.map((tag, index) => (
-                                <Link key={index} to={'/'} className={classes.case_img_tag}
+                                <Link
+                                    key={index}
+                                    to={'/'}
+                                    className={classes.case_img_tag}
+                                    onClick={stopPropagation}
                                 // data-cursor="filter"
                                 >
                                     {tag}
@@ -96,17 +113,20 @@ function CaseCard({ imgSrc, title, description, tags, type, price = 0, date }) {
                             {description}
                         </div>
                     </div>
-                </Link>
+                </div>
             }
 
             {type == "banner" &&
-                <Link to={"/banner"}
+                <div
                     className={`${classes.case} ${classes.type_banner}`}
                     ref={caseRef}
                     onMouseMove={handleMouseMove}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
+                    onClick={handleClick}
                     data-cursor={type}
+                    style={{ cursor: 'pointer' }}
+                    data-url-text={url_text}
                 >
                     {isHovered && (
                         <div
@@ -119,7 +139,11 @@ function CaseCard({ imgSrc, title, description, tags, type, price = 0, date }) {
                     )}
                     <div className={classes.banner_tags}>
                         {tags.map((tag, index) => (
-                            <Link key={index} to={'/'} className={classes.banner_tag}
+                            <Link
+                                key={index}
+                                to={'/'}
+                                className={classes.banner_tag}
+                                onClick={stopPropagation}
                             // data-cursor="filter_blue"
                             >
                                 {tag}
@@ -136,17 +160,20 @@ function CaseCard({ imgSrc, title, description, tags, type, price = 0, date }) {
                             <img src={imgSrc} alt="" />
                         </div>
                     </div>
-                </Link>
+                </div>
             }
 
             {type == "new" &&
-                <Link to={"/new"}
+                <div
                     className={`${classes.case} ${classes.type_new}`}
                     ref={caseRef}
                     onMouseMove={handleMouseMove}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
+                    onClick={handleClick}
                     data-cursor={type}
+                    style={{ cursor: 'pointer' }}
+                    data-url-text={url_text}
                 >
                     {isHovered && (
                         <div
@@ -163,7 +190,11 @@ function CaseCard({ imgSrc, title, description, tags, type, price = 0, date }) {
                             <div className={classes.new_container_dot}></div>
                             <div className={classes.new_container_tag}>
                                 {tags.map((tag, index) => (
-                                    <Link key={index} to={'/'} className={classes.banner_tag}
+                                    <Link
+                                        key={index}
+                                        to={'/'}
+                                        className={classes.banner_tag}
+                                        onClick={stopPropagation}
                                     // data-cursor="filter"
                                     >
                                         {tag}
@@ -177,17 +208,20 @@ function CaseCard({ imgSrc, title, description, tags, type, price = 0, date }) {
                             <img src={imgSrc} alt="" />
                         </div>
                     </div>
-                </Link>
+                </div>
             }
 
             {type == "shop" &&
-                <Link to={"/shop"}
+                <div
                     className={`${classes.case} ${classes.type_shop}`}
                     ref={caseRef}
                     onMouseMove={handleMouseMove}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
+                    onClick={handleClick}
                     data-cursor={type}
+                    style={{ cursor: 'pointer' }}
+                    data-url-text={url_text}
                 >
                     {isHovered && (
                         <div
@@ -217,7 +251,11 @@ function CaseCard({ imgSrc, title, description, tags, type, price = 0, date }) {
                         </div>
                         <div className={classes.shop_img_tags}>
                             {tags.map((tag, index) => (
-                                <Link key={index} to={'/'} className={classes.shop_img_tag}
+                                <Link
+                                    key={index}
+                                    to={'/'}
+                                    className={classes.shop_img_tag}
+                                    onClick={stopPropagation}
                                 // data-cursor="filter_blue"
                                 >
                                     {tag}
@@ -228,12 +266,12 @@ function CaseCard({ imgSrc, title, description, tags, type, price = 0, date }) {
                             <div className={classes.shop_price}>
                                 {formatAmount(price)} ₽
                             </div>
-                            <div className={classes.shop_card} data-cursor="card">
+                            <div className={classes.shop_card} data-cursor="card" onClick={stopPropagation}>
                                 Добавить в корзину
                             </div>
                         </div>
                     </div>
-                </Link>
+                </div>
             }
         </>
     );
